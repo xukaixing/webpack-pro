@@ -4,12 +4,20 @@
   "description": "webpack-pro",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config build/webpack.config.js --mode development",
+    "dev": "webpack-dev-server --config build/webpack.config.js --mode development"
   },
   "keywords": [
     "webpack",
-    "webpack-cli"
+    "webpack-cli",
+    "webpack-dev-server"
   ],
   "author": "xukaixing<andy.ten@tom.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.3"
+  }
 }
