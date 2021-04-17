@@ -90,6 +90,8 @@ package-lock.json
 *.njsproj
 *.sln
 
+### node_modules ###
+node_modules
 
 ### Log ###
 logs/
