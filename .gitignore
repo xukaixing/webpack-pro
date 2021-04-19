@@ -33,14 +33,14 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
+#build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 ### plugin release file ###
 *.zip
 *.zip.sha1
- 
+
 #### .gitignore for java ###
 *.class
 
@@ -53,10 +53,10 @@ classes
 
 ### Folder config file ###
 Desktop.ini
- 
+
 ### Recycle Bin used on file shares ###
 $RECYCLE.BIN/
- 
+
 ### .gitignore for mac os x ###
 .DS_Store
 
