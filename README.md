@@ -63,12 +63,21 @@ npm install ejs-loader --save-dev
 
 ``` 目录
 .
-├── add-content.js
+├── build
+│   ├── webpack.config.js
+│   └── webpack.util.js
+├── config
 ├── index.html
-├── index.js
-└── package.json
+├── md
+├── package-lock.json
+├── package.json
+├── src
+│   ├── app.js
+│   ├── vendor.js
+│   └── verdor
+└── static
 
-0 directories, 4 files
+6 directories, 7 files
 
 ```
 
