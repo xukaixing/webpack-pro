@@ -2,7 +2,6 @@
   "name": "webpack-pro",
   "version": "1.0.1",
   "description": "webpack-pro",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config build/webpack.config.js --mode development",
@@ -11,13 +10,37 @@
   "keywords": [
     "webpack",
     "webpack-cli",
-    "webpack-dev-server"
+    "webpack-dev-server",
+    "eslint",
+    "prettier",
+    "babel",
+    "html-webpack-plugin"
   ],
   "author": "xukaixing<andy.ten@tom.com>",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-runtime": "^6.26.0",
+    "ejs-loader": "^0.5.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-commonjs": "^1.0.2",
+    "eslint-plugin-html": "^6.1.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-vue": "^7.9.0",
+    "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.3"
-  }
+  },
+  "dependencies": {}
 }
