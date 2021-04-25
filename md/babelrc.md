@@ -11,3 +11,9 @@
 - babel-preset-env: 包含 es6、7 等版本的语法转化规则
 - babel-polyfill: es6 内置方法和函数转化垫片
 - babel-plugin-transform-runtime: 避免 polyfill 污染全局变量
+
+## 个人主页
+
+- 欢迎访问个人 [github-xukaixing](https://github.com/xukaixing) 主页.
+- 欢迎访问个人 [gitee-xukaixing](https://gitee.com/xukaixing) 主页.
+  

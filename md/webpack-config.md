@@ -67,25 +67,86 @@ module.exports = {
 - publicPath: "/dist/" // 实际路径http://localhost:8080/dist/app.chunkhash.js
 ```
 
+## `devServer`
+
+```text
+开发服务
+```
+
+- `publicPath`: webpack-dev-sever的静态资源路径;一般与webpack的output.publicPath保持一致，避免开发环境和生产环境不一致；
+  
 ## `module`
 
+```text
+loader在Webpack中它的实际功能则更像是预处理器。Webpack本身只认识JavaScript，对于其他类型的资源必须预先定义一个或多个loader对其进行转译，输出为Webpack能够接收的形式再继续进行，因此loader做的实际上是一个预处理的工作。
+```
+
 - `rule`  
+  
+```text
+loader相关配置，loader的顺序代表了加载执行的顺序
+```
+
+- `css-loader`
+  - 作用是处理CSS的各种加载语法@import和url()函数等，如果要使样式起作用需要style-loader把样式插入页面
+- `style-loader`
+- 作用是将样式字符串包装成style标签插入页面哦
+  - use:['style-loader', 'css-loader'] webpack打包时是按照数组从后往前的顺序将资源交给loader处理
 
 ## `plugins`
 
 - `BannerPlugin`
   - banner插件，在webpack模块大下，引入webpack模块即可
+- `clean-webpack-plugin`
+
+- `copy-webpack-plugin`
+  - 拷贝静态目录至dist生成目录
+  
+```javascript
+新版本配置方法：
+new _CopyWebpackPlugin({
+      patterns: [{
+        from: _webpackUtil.resolve(__dirname, '../static'),
+        to: 'static',
+        globOptions: {
+          ignore: ["**/.*"],
+        },
+      }],
+      options:{
+
+      }
+    }),
+```
   
 - `html-webpack-plugin`
+  - 作用一是创建HTML页面文件到你的输出目录，作用二是将webpack打包后的chunk自动引入到这个HTML中
   - `inject`: 向template或者templateContent中注入所有静态资源，不同的配置值注入的位置不经相同
     - true或者body：所有JavaScript资源插入到body标签内的最底部
     - head: 所有JavaScript资源插入到head元素中
     - false： 所有静态资源css和JavaScript都不会注入到模板文件中  
   - `templateParameters`: 允许覆盖html模板中使用的参数，参数定义：<%= 参数名字1 %>
     - 参数名字1
+  - `favicon`: 添加特定favicon路径到输出的html文档中，这个同title配置项，需要在模板中动态获取其路径值
+    - favicon: _webpackUtil.join('/favicon.ico'),
+  - `minify`: 对生成的html文件进行压缩,默认是false,即不进行压缩
+    - `removeComments`: 清理html中的注释,默认值为false
+    - `collapseWhitespace`: 清理html中的空格、换行符,默认值为false
+    - `minifyCSS`: 压缩html内的样式,默认为false
+    - `removeAttributeQuotes`: 移除属性的引号，默认为false
+  - `chunksSortMode`: 在插入html前chunk生成的script标签进行排序，默认为auto，四个选项： none auto dependency {function}
+    - dependency: 指按照依赖关系排序后插入到html中
+  - `chunks`: 当有多个入口文件的时候，对应就会生成多个编译后的 js 文件。那么 chunks 选项就可以决定是否都使用这些生成的 js 文件。
+    - chunks: ['index','index2']
+  - `excludeChunks`: 排除掉某些 js chunk
+    - excludeChunks: ['index1.js']
   
 ```text
   生成html插件(注意版本需与webpack版本对应；3.2.0可以兼容webpack4)
   - 为html文件中引入的外部资源如script、link动态添加每次compile后的hash，防止引用缓存的外部文件问题;
   - 可以生成创建html入口文件，比如单页面可以生成一个html文件入口，配置N个html-webpack-plugin可以生成N个页面入口;  
 ```
+
+## 个人主页
+
+- 欢迎访问个人 [github-xukaixing](https://github.com/xukaixing) 主页.
+- 欢迎访问个人 [gitee-xukaixing](https://gitee.com/xukaixing) 主页.

@@ -4,6 +4,18 @@
   
 ## 版本
 
+> v1.0.4 : 2021.04.24
+>> 新增copy-Webpack-plugin插件  
+
+---
+
+> v1.0.3 : 2021.04.21
+>> 新增webpack的config配置类  
+>> 新增CleanWebpackPlugin插件,build前清理dist目录
+>> 新增HtmlWebpackPlugin插件,生成html文件插件
+
+---
+
 > v1.0.2 : 2021.04.19
 >> 重构index.js为app.js  
 >> 增加vendor.js
@@ -50,6 +62,10 @@ $ npx webpack -v
 $ npx webpack --entry=./index.js --output-filename=bundle.js --mode=development
 ## 安装webpaxk-dev-server,注意版本，不指定版本号，容易造成版本不兼容
 $ npm install webpack-dev-server@3.10.3 --save-dev
+## 安装eslint、eslint-loader、eslint-friendly-formatter、eslint-plugin-html，对源码进行质量检测
+npm install eslint-loader --save-dev
+## 安装prettier格式化插件，不做语法校验
+npm install prettier --save-dev
 ## 安装babel，babel-loader注意版本，使用@7.1.5
 npm install babel-core babel-loader@7.1.5 babel-plugin-transform-runtime babel-preset-env --save-dev
 npm install babel-polyfill babel-runtime --save-dev
@@ -57,6 +73,17 @@ npm install babel-polyfill babel-runtime --save-dev
 npm install html-webpack-plugin@3.2.0 --save-dev
 ## 安装ejs-loader解析ejs文件插件
 npm install ejs-loader --save-dev
+## 安装clean-webpack-plugin清除dist生成文件插件
+npm install clean-webpack-plugin@3.0.0 --save-dev
+## 安装copy-webpack-plugin，将单个文件或整个目录复制到构建目录(用最新版会有报错：Compiler.getCache方法报错)
+npm install copy-webpack-plugin@5.1.1 --save-dev
+## 安装css-loader，处理CSS的各种加载语法（@import和url()函数等）
+npm install css-loader@3 --save-dev
+## 安装sass-loader，将scss编译为css
+npm install sass-loader@7 --save-dev
+## 安装style-loader，将css编译为样式字符串包装成style标签插入页面
+npm install sass-loader --save-dev
+
 ```
 
 ## 目录结构

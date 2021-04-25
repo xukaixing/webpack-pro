@@ -4,24 +4,35 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-17 13:42:08
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-04-19 23:56:15
- * @Version: 1.0.2
+ * @LastEditTime: 2021-04-25 00:46:38
+ * @Version: 1.0.3
 -->
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <title><%= my_title %></title>
-  </head>
-  <body>
-    <div class="logo"></div>
-    <h1>hello world!</h1>
-    <br>
-    <div id="app"></div>
-  </body>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>
+  <%= myTitle %>
+</title>
+<link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+  .helloworld {
+    font-size: 20px;
+  }
+
+</style>
+</head>
+
+<body>
+  <h1 class="helloworld">hello world!</h1>
+  <br />
+  <div class="logo">test import css</div>
+  <br />
+  <div id="app"></div>
+</body>
+
 </html>
