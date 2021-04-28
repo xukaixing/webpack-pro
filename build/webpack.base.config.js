@@ -7,8 +7,8 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-17 14:33:17
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-04-25 00:26:09
- * @Version: 1.0.3
+ * @LastEditTime: 2021-04-27 10:57:14
+ * @Version: 1.0.4
  */
 'use strict';
 
@@ -39,16 +39,24 @@ module.exports = {
   mode: 'development',
   devServer: {
     port: _webpackConfig.dev.devServerPort(),
-    publicPath: _webpackConfig.base.assetsPublicPath()
+    publicPath: _webpackConfig.base.assetsPublicPath(),
+    overlay: {
+      warnings: false,
+      errors: true
+    }
   },
   module: {
     rules: [
       {
         test: /\.js|jsx$/,
+        enforce: 'pre',
+        loader: 'eslint-loader',
         include: [_webpackUtil.join('src')],
         exclude: /(node_modules|bower_components)|.ejs$/,
-        enforce: 'pre',
-        use: 'eslint-loader'
+        options: {
+          formatter: require('eslint-friendly-formatter'),
+          emitWarning: true
+        }
       },
       {
         test: /\.css$/,
@@ -98,7 +106,7 @@ module.exports = {
     ]),
     new CleanWebpackPlugin({
       verbose: true,
-      cleanOnceBeforeBuildPatterns: [_webpackUtil.resolve(__dirname, _webpackConfig.build.buildPath())]
+      cleanOnceBeforeBuildPatterns: ['**/*', _webpackConfig.build.buildPath()]
     })
   ]
 };
