@@ -7,14 +7,14 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-21 10:05:12
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-04-25 00:00:45
+ * @LastEditTime: 2021-04-26 21:34:21
  * @Version: 1.0.1
  */
 'use strict';
 
 const _assetsPublicPath = '/';
 const _assetsSubDirectory = 'static';
-const _buildPath = './dist';
+const _buildPath = 'dist';
 
 /**
  * 定义BannerPlugin插件常量
@@ -38,40 +38,20 @@ const _htmlPluginTemplateParametersTitle = 'My App';
  */
 module.exports = {
   base: {
-    bannerPluginBanner: () => {
-      return _bannerPluginBanner;
-    },
+    bannerPluginBanner: () => _bannerPluginBanner,
     // path
-    assetsPublicPath: () => {
-      return _assetsPublicPath;
-    },
-    assetsSubDirectory: () => {
-      return _assetsSubDirectory;
-    },
-    htmlPluginFilename: () => {
-      return _htmlPluginFilename;
-    },
-    htmlPluginTemplate: () => {
-      return _htmlPluginTemplate;
-    },
-    htmlPluginTemplateParametersBaseUrl: () => {
-      return _assetsPublicPath + _assetsSubDirectory;
-    },
-    htmlPluginTemplateParametersTitle: () => {
-      return _htmlPluginTemplateParametersTitle;
-    },
-    htmlPluginFavicon: () => {
-      return _htmlPluginFavicon;
-    }
+    assetsPublicPath: () => _assetsPublicPath,
+    assetsSubDirectory: () => _assetsSubDirectory,
+    htmlPluginFilename: () => _htmlPluginFilename,
+    htmlPluginTemplate: () => _htmlPluginTemplate,
+    htmlPluginTemplateParametersBaseUrl: () => _assetsPublicPath + _assetsSubDirectory,
+    htmlPluginTemplateParametersTitle: () => _htmlPluginTemplateParametersTitle,
+    htmlPluginFavicon: () => _htmlPluginFavicon
   },
   dev: {
-    devServerPort: () => {
-      return _devServerPort;
-    }
+    devServerPort: () => _devServerPort
   },
   build: {
-    buildPath: () => {
-      return _buildPath;
-    }
+    buildPath: () => _buildPath
   }
 };
