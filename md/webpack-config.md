@@ -1,6 +1,10 @@
 # 说明
 
   `Webpack` 常用配置说明
+
+## `version`  
+
+- v1.0.4
   
 ## `path`
 
@@ -74,6 +78,7 @@ module.exports = {
 ```
 
 - `publicPath`: webpack-dev-sever的静态资源路径;一般与webpack的output.publicPath保持一致，避免开发环境和生产环境不一致；
+- `overlay`: webpack 在编译的时候如果出现了错误，可以在网页上显示
   
 ## `module`
 
@@ -85,8 +90,11 @@ loader在Webpack中它的实际功能则更像是预处理器。Webpack本身只
   
 ```text
 loader相关配置，loader的顺序代表了加载执行的顺序
+include和exclude同时存在时，exclude优先级更好
 ```
 
+- `eslint-loader`
+  - eslint-friendly-formatter 可以让eslint的错误信息出现在终端上
 - `css-loader`
   - 作用是处理CSS的各种加载语法@import和url()函数等，如果要使样式起作用需要style-loader把样式插入页面
 - `style-loader`
@@ -97,13 +105,23 @@ loader相关配置，loader的顺序代表了加载执行的顺序
 
 - `BannerPlugin`
   - banner插件，在webpack模块大下，引入webpack模块即可
+
 - `clean-webpack-plugin`
+  - cleanOnceBeforeBuildPatterns: ['**/*', _webpackConfig.build.buildPath()] 必须是数组，且必须加上"**/*"通配符,否则无法删除
 
 - `copy-webpack-plugin`
   - 拷贝静态目录至dist生成目录
   
 ```javascript
-新版本配置方法：
+旧版本配置方法：（5.1.1以前）
+new _CopyWebpackPlugin([
+      {
+        from: _webpackUtil.resolve(__dirname, '..', _webpackConfig.base.assetsSubDirectory()),
+        to: _webpackConfig.base.assetsSubDirectory(),
+        ignore: ['.*']
+      }
+    ]),
+新版本配置方法：（6.0.0以后）
 new _CopyWebpackPlugin({
       patterns: [{
         from: _webpackUtil.resolve(__dirname, '../static'),

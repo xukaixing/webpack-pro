@@ -1,7 +1,11 @@
 # 说明
 
   `Webpack` 常见问题说明
-  
+
+## `version`  
+
+- v1.0.1
+
 ## `build`
 
 - `Error: No valid exports main found for '**/**//node_modules/postcss'`

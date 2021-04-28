@@ -2,6 +2,10 @@
 
   `.eslintjs` 常用配置说明
 
+## `version`  
+
+- v1.0.1
+  
 ## `vscode设置`
 
 ```settings.json

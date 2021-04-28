@@ -1,6 +1,10 @@
 # 说明
 
   `.prettierrc.yaml` 常用配置说明
+
+## `version`  
+
+- v1.0.1
   
 ## `配置参数`
 
