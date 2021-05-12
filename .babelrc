@@ -1,12 +1,32 @@
 {
   "presets": [
     [
-      "env",{
+      "@babel/preset-env",
+      {
+        "modules": false,
         "targets": {
-          "browsers": ["last 2 versions"]
-        }
+          "browsers": [
+            "> 1%",
+            "last 2 versions",
+            "safari >= 7",
+            "not ie <= 8",
+            "chrome >= 62"
+          ]
+        },
+        "corejs": 3,
+        "useBuiltIns": "usage"
       }
     ]
   ],
-  "plugins": ["transform-runtime"]
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties",
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ]
+  ]
 }
