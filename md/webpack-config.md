@@ -4,7 +4,7 @@
 
 ## `version`  
 
-- v1.0.4
+- v1.0.5
   
 ## `path`
 
@@ -71,6 +71,18 @@ module.exports = {
 - publicPath: "/dist/" // 实际路径http://localhost:8080/dist/app.chunkhash.js
 ```
 
+- `chunkFilename`
+  
+```text
+  涉及懒加载和预加载
+    chunkFilename用来打包require.ensure方法中引入的模块,如果该方法中没有引入任何模块则不会生成任何chunk块文件
+    比如在main.js文件中,require.ensure([],function(require){alert(11);}),这样不会打包块文件
+    只有这样才会打包生成块文件require.ensure([],function(require){alert(11);require('./greeter')})
+    或者这样require.ensure(['./greeter'],function(require){alert(11);})
+    chunk的hash值只有在require.ensure中引入的模块发生变化,hash值才会改变
+    注意:对于不是在ensure方法中引入的模块,此属性不会生效,只能用CommonsChunkPlugin插件来提取
+```
+
 ## `devServer`
 
 ```text
@@ -98,8 +110,31 @@ include和exclude同时存在时，exclude优先级更好
 - `css-loader`
   - 作用是处理CSS的各种加载语法@import和url()函数等，如果要使样式起作用需要style-loader把样式插入页面
 - `style-loader`
-- 作用是将样式字符串包装成style标签插入页面哦
+- 作用是将样式字符串包装成style标签插入页面
   - use:['style-loader', 'css-loader'] webpack打包时是按照数组从后往前的顺序将资源交给loader处理
+- `babel-loader`
+  - babel和Webpack协同工作的模块，用来处理ES6+并将其编译为ES5
+  - babel-core: Baebl编译器的核心模块
+  - babel-preset-evn: Babel官方推荐的预置器，可根据用户设置的目标环境自动添加所需的插件和补丁来编辑ES6+
+  - 在 babel7中babel-core和 babel-preset被建议使用 `@babel` 开头声明作用域，因此应该分别下载 `@babel/core` 和· `@babel/presets`
+  
+```text
+- 由于babel-loader通常属于对所有JS后缀文件设置的规则，所以需要在exclude中添加node_modules，否则会令babel-loader编译其中所有的模块，这将严重拖慢打包的速度，并且有可能改变第三方模块的原有行为。
+- 对于babel-loader本身我们添加了cacheDirectory配置项，它会启用缓存机制，在重复打包未改变过的模块时防止二次编译，同样也会加快打包的速度。cacheDirectory可以接收一个字符串类型的路径来作为缓存路径，这个值也可以为true，此时其缓存目录会指向node_modules/.cache/babel-loader。
+- 由于@babel/preset-env会将ES6 Module转化为CommonJS的形式，这会导致Webpack中的tree-shaking特性失效。将@babel/preset-env的modules配置项设置为false会禁用模块语句的转化，而将ES6 Module的语法交给Webpack本身处理。
+- cacheDirectory：默认值为 false。当有设置时，指定的目录将用来缓存 loader 的执行结果。之后的 webpack 构建，将会尝试读取缓存，来避免在每次执行时，可能产生的、高性能消耗的 Babel 重新编译过程(recompilation process)。
+  如果设置了一个空值 (loader: 'babel-loader?cacheDirectory') 或者 true (loader: babel-loader?cacheDirectory=true)，loader 将使用默认的缓存目录 node_modules/.cache/babel-loader，如果在任何根目录下都没有找到 node_modules 目录，将会降级回退到操作系统默认的临时文件目录。
+```
+
+- `file-loader`
+  - webpack 将所需的对象作为文件发送并返回其公用publicPath
+  - 默认情况下，生成的文件的文件名就是文件内容的 MD5 哈希值并会保留所引用资源的原始扩展名，如：返回："/a72d2dcfb73499513b9f7fd1f58efc67.jpg.png"
+
+- `url-loader`
+  - 作用与file-loader类似，区别在于可以设置文件大小的阀值，小于阀值返回base64编码，大于则与file-loader一样返回url
+  - limit: 10000,单位为字节， 只有小于10000字节=10K的图片才转为base64码引用
+- `MiniCssExtractPlugin.loader`
+  - 分离css为独立的文件，使用该loader，不能与style-loader共用；（style-loader是把css打包成style标签内容插入页面，而不是分离文件）
 
 ## `plugins`
 
@@ -164,6 +199,8 @@ new _CopyWebpackPlugin({
   - 可以生成创建html入口文件，比如单页面可以生成一个html文件入口，配置N个html-webpack-plugin可以生成N个页面入口;  
 ```
 
+- `MiniCssExtractPlugin`
+  
 ## 个人主页
 
 - 欢迎访问个人 [github-xukaixing](https://github.com/xukaixing) 主页.

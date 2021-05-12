@@ -6,6 +6,20 @@
   
 ## 版本
 
+> v1.0.5 : 2021.05.10
+>> 新增file-loader插件  
+>> 新增url-loader插件  
+>> 新增mini-css-extract-plugin插件  
+>> 新增sass-loader、node-sass插件，转换scss为css  
+>> 新增less-loader、less插件，转换less为css  
+
+---
+
+> v1.0.4 : 2021.04.24
+>> 新增copy-Webpack-plugin插件  
+
+---
+
 > v1.0.3 : 2021.04.21
 >> 新增webpack的config配置类  
 >> 新增CleanWebpackPlugin插件,build前清理dist目录
