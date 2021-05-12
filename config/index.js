@@ -7,13 +7,16 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-21 10:05:12
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-04-26 21:34:21
+ * @LastEditTime: 2021-05-11 19:54:05
  * @Version: 1.0.1
  */
 'use strict';
 
+const _staticSubDirectory = 'static';
+
 const _assetsPublicPath = '/';
-const _assetsSubDirectory = 'static';
+const _assetsSubDirectory = 'assets';
+
 const _buildPath = 'dist';
 
 /**
@@ -24,7 +27,7 @@ const _bannerPluginBanner = 'Copyright® xukaixing<andy.ten@tom.com>';
 /**
  * devServer配置
  */
-const _devServerPort = '8081';
+const _devServerPort = '8888';
 /**
  * 定义HtmlWebpackPlugin插件常量
  */
@@ -34,24 +37,34 @@ const _htmlPluginFavicon = 'favicon.ico';
 const _htmlPluginTemplateParametersTitle = 'My App';
 
 /**
+ * url-loader配置
+ */
+const _urlLoaderLimitDev = 10000;
+const _urlLoaderLimitProd = 10000;
+/**
  * 导出
  */
 module.exports = {
   base: {
     bannerPluginBanner: () => _bannerPluginBanner,
     // path
+    staticSubDirectory: () => _staticSubDirectory,
     assetsPublicPath: () => _assetsPublicPath,
     assetsSubDirectory: () => _assetsSubDirectory,
+
     htmlPluginFilename: () => _htmlPluginFilename,
     htmlPluginTemplate: () => _htmlPluginTemplate,
-    htmlPluginTemplateParametersBaseUrl: () => _assetsPublicPath + _assetsSubDirectory,
+    htmlPluginTemplateParametersBaseUrl: () => _assetsPublicPath + _staticSubDirectory,
     htmlPluginTemplateParametersTitle: () => _htmlPluginTemplateParametersTitle,
     htmlPluginFavicon: () => _htmlPluginFavicon
   },
   dev: {
-    devServerPort: () => _devServerPort
+    devServerPort: () => _devServerPort,
+    urlLoaderLimit: () => _urlLoaderLimitDev
+
   },
   build: {
-    buildPath: () => _buildPath
+    buildPath: () => _buildPath,
+    urlLoaderLimit: () => _urlLoaderLimitProd
   }
 };
