@@ -1,0 +1,19 @@
+/*
+ * @Copyright: Copyright (c) 2021 andyten
+ * @Description: 通用样式表
+ * @Author: andy.ten@tom.com
+ * @Version: 1.0.1
+ */
+@import "./variables";
+@import "./_font";
+@import "./_button";
+
+.logo {
+  color: $logo-color;
+}
+
+// @mixin用法
+.btn{
+  @extend .btn-default;
+  @include setBtnRounded();
+}

@@ -1,0 +1,16 @@
+/*
+ * @Copyright: Copyright (c) 2021 andyten
+ * @Description: 通用button样式表
+ * @Author: andy.ten@tom.com
+ * @Version: 1.0.1
+ */
+
+ .btn-default{
+   font-size: 16px;
+ }
+// 定义 mixin 并设置默认值 5px
+ @mixin setBtnRounded($conor: 5px){
+  -webkit-border-radius: $conor;
+  -moz-border-radius: $conor;
+  border-radius: $conor;
+}
