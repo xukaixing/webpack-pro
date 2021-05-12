@@ -7,8 +7,8 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-17 14:33:17
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-04-27 10:57:14
- * @Version: 1.0.4
+ * @LastEditTime: 2021-05-12 15:38:05
+ * @Version: 1.0.5
  */
 'use strict';
 
@@ -22,18 +22,20 @@ const _webpackConfig = require('../config/index');
 const _HtmlWebpackPlugin = require('html-webpack-plugin');
 const _CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const _MiniCssExtractPlugin = require('mini-css-extract-plugin');
 /**
  * 导出
  */
 module.exports = {
   context: _webpackUtil.join('/src'),
   entry: {
-    app: ['babel-polyfill', './app.js'],
+    app: ['./app.js'],
     verdor: ['./vendor.js']
   },
   output: {
     path: _webpackUtil.resolve(__dirname, '../dist'),
-    filename: '[name].[chunkhash:8].js',
+    filename: _webpackUtil.assetsPath('js/[name].[chunkhash:8].js'),
+    chunkFilename: _webpackUtil.assetsPath('js/[name].[chunkhash:8].js'),
     publicPath: _webpackConfig.base.assetsPublicPath()
   },
   mode: 'development',
@@ -60,8 +62,46 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [_MiniCssExtractPlugin.loader, 'css-loader'],
         exclude: /node_modules/
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: [
+          _MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.less$/,
+        exclude: /node_modules/,
+        use: [
+          _MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.ejs$/,
@@ -71,10 +111,18 @@ module.exports = {
         test: /\.js|jsx$/,
         include: [_webpackUtil.join('src')],
         exclude: /(node_modules|bower_components)|.ejs$/,
-        loader: 'babel-loader'
-        // options: {
-        //   presets: ['@babel/preset-env'],
-        // }
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
+        }
+      },
+      {
+        test: /\.(png|jpe?g|svg|gif|ico)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: _webpackConfig.dev.urlLoaderLimit(),
+          name: _webpackUtil.assetsPath('/img/[name].[hash:7].[ext]')
+        }
       }
     ]
   },
@@ -99,11 +147,15 @@ module.exports = {
     }),
     new _CopyWebpackPlugin([
       {
-        from: _webpackUtil.resolve(__dirname, '..', _webpackConfig.base.assetsSubDirectory()),
-        to: _webpackConfig.base.assetsSubDirectory(),
+        from: _webpackUtil.resolve(__dirname, '..', _webpackConfig.base.staticSubDirectory()),
+        to: _webpackConfig.base.staticSubDirectory(),
         ignore: ['.*']
       }
     ]),
+    new _MiniCssExtractPlugin({
+      filename: _webpackUtil.assetsPath('/css/[name].[contenthash:8].css'),
+      chunkFilename: _webpackUtil.assetsPath('/css/[name].[contenthash:8].css')
+    }),
     new CleanWebpackPlugin({
       verbose: true,
       cleanOnceBeforeBuildPatterns: ['**/*', _webpackConfig.build.buildPath()]
