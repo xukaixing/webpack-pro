@@ -4,7 +4,7 @@
 
 ## `version`  
 
-- v1.0.5
+- v1.0.6
   
 ## `path`
 
@@ -72,10 +72,12 @@ module.exports = {
 ```
 
 - `chunkFilename`
-  
+
+按需加载/异步加载,通过注释/* webpackChunkName: "name"方式修改异步加载chunk名字，否则就是数据 0.js
+
 ```text
   涉及懒加载和预加载
-    chunkFilename用来打包require.ensure方法中引入的模块,如果该方法中没有引入任何模块则不会生成任何chunk块文件
+    chunkFilename用来打包require.ensure方法或import()异步加载中引入的模块,如果该方法中没有引入任何模块则不会生成任何chunk块文件
     比如在main.js文件中,require.ensure([],function(require){alert(11);}),这样不会打包块文件
     只有这样才会打包生成块文件require.ensure([],function(require){alert(11);require('./greeter')})
     或者这样require.ensure(['./greeter'],function(require){alert(11);})
@@ -109,6 +111,12 @@ include和exclude同时存在时，exclude优先级更好
   - eslint-friendly-formatter 可以让eslint的错误信息出现在终端上
 - `css-loader`
   - 作用是处理CSS的各种加载语法@import和url()函数等，如果要使样式起作用需要style-loader把样式插入页面
+  - `importLoaders`: 允许你配置在 css-loader 之前有多少 loader 应用于@imported 资源;
+  
+```text
+指的是在scss文件中引入另一个scss(@import)，被引入的文件是否需要重新执行css-loader之前的loader，如：sass-loader和postcss-loader；如果执行，则会造成重复解析
+```
+
 - `style-loader`
 - 作用是将样式字符串包装成style标签插入页面
   - use:['style-loader', 'css-loader'] webpack打包时是按照数组从后往前的顺序将资源交给loader处理
@@ -135,6 +143,77 @@ include和exclude同时存在时，exclude优先级更好
   - limit: 10000,单位为字节， 只有小于10000字节=10K的图片才转为base64码引用
 - `MiniCssExtractPlugin.loader`
   - 分离css为独立的文件，使用该loader，不能与style-loader共用；（style-loader是把css打包成style标签内容插入页面，而不是分离文件）
+  
+## `optimization`
+
+- `splitChunks`
+  - 设置提取条件，如提取的模式、提取模块的提及等，当某些模块达到这些条件后就会被自动的提取出来；
+  - `chunks`: 默认值为：async；有三个值：async，initial、all；async只提取异步chunk，initial只对入口chunk生效；
+  - `minSize`:默认值为：javascript:30000(30k),style:50000(50k);
+  - `maxAsyncRequests`: 默认值为5
+  - `maxInitialRequests`: 默认值为3
+  - `automaticNameDelimiter`: 默认值为'~',自动新生成的chunk命名分隔符；
+  - `name`:默认值为true；它意味着SplitChunks可以根据cacheGroups和作用范围自动为新生成的chunk命名，并以automaticNameDelimiter分隔。如vendors~a~b~c.js意思是cacheGroups为vendors，并且该chunk是由a、b、c三个入口chunk所产生的
+  - `cacheGroups`: 分离chunks时的规则；
+    - `priority`: 分离chunk的优先级；当一个模块同时符合多个cacheGroups规则时，根据该配置项确定优先级；
+
+```text
+SplitChunks默认情形下的提取条件：
+·提取后的chunk可被共享或者来自node_modules目录。这一条很容易理解，被多次引用或处于node_modules中的模块更倾向于是通用模块，比较适合被提取出来。
+·提取后的Javascript chunk体积大于30kB（压缩和gzip之前），CSS chunk体积大于50kB。这个也比较容易理解，如果提取后的资源体积太小，那么带来的优化效果也比较一般。
+·在按需加载过程中，并行请求的资源最大值小于等于5。按需加载指的是，通过动态插入script标签的方式加载脚本。我们一般不希望同时加载过多的资源，因为每一个请求都要花费建立链接和释放链接的成本，因此提取的规则只在并行请求不多的时候生效。
+·在首次加载时，并行请求的资源数最大值小于等于3。和上一条类似，只不过在页面首次加载时往往对性能的要求更高，因此这里的默认阈值也更低。
+```
+
+## `devtool`
+
+source-map:  一种 提供源代码到构建后代码映射 技术 （如果构建后代码出错，可以通过映射追踪到源代码错误）
+开启sourcemap后，打开chrome浏览器的开发者工具，在“Sources”选项卡下的"webpack://"目录中可以找到解析后的工程源码（js）
+
+```text
+devtool:    
+格式：[inline- | hidden- | eval-][nosources-][cheap-[module-]]source-map
+  可以任意排列，但[]的顺序不能乱
+
+具体介绍
+
+- source-map: 在外部生成一个文件
+  在控制台会显示 错误代码准确信息 和 源代码的错误位置
+- inline-source-map: 内嵌到bundle.js中
+  只生成一个source-map
+  在控制台会显示 错误代码准确信息 和 源代码的错误位置
+- hidden-source-map: 外部
+  错误代码错误原因，源代码的错误位置
+  不能追踪源代码错误，只能提示到构建后代码的错误位置
+- eval-source-map： 内嵌
+  每一个文件都生成对应的source-map
+  错误代码准确信息，源代码的错误位置
+- nosources-source-map: 外部
+  错误代码准确信息，没有任何源代码信息
+- cheap-source-map: 外部
+  错误代码准确信息，源代码的错误位置
+  只能精准到行
+- cheap-module-source-map: 外部
+  错误代码准确信息，源代码的错误位置
+  module会将loader的source-map加入
+
+  内嵌与外部的区别： 1.外部生成单独的文件，内嵌没有 2.内嵌构建速度快
+
+  这么多source-map如何选择？
+  开发环境：速度快，调试更友好
+    速度快（ eval>inline>cheap>··· ）
+    组合eval-cheap-source-map > eval-source-map
+    调试更友好
+      source-map > cheap-module-source-map > cheap-source-map
+    最终结果：cheap-module-source-map 和 eval-source-map (vuecli与react脚手架默认)
+  
+  生产环境：源代码要不要隐藏？调试要不要更友好
+    内嵌会让代码体积变大，所以在生产环境下不用内嵌
+    nosources-source-map  全部隐藏
+    hidden-source-map   只隐藏源代码，会提示构建后代码错误信息
+    最终结果：source-map 和 cheap-module-source-map
+
+```
 
 ## `plugins`
 

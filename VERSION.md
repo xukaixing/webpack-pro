@@ -6,6 +6,13 @@
   
 ## 版本
 
+> v1.0.6 : 2021.05.24
+>> 新增postcss-loader插件  
+>> 新增自动前缀autoprefixer插件  
+>> 新增stylelint插件配置
+
+---
+
 > v1.0.5 : 2021.05.10
 >> 新增file-loader插件  
 >> 新增url-loader插件  

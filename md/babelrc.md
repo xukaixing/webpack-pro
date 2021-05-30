@@ -1,13 +1,13 @@
 # 说明
 
   `Babel` 说明
-    把es6的写法转换成es5的写法,转换后的代码是遵循commonJS规范的，而这个规范，浏览器并不能识别。因此导入到浏览器中会报错，而nodeJS是
+    把es6+的写法转换成es5的写法,转换后的代码是遵循commonJS规范的，而这个规范，浏览器并不能识别。因此导入到浏览器中会报错，而nodeJS是
   commonJS的实现者，所以在babel转换后的代码是可以在node中运行的.
     为了将babel生成的commonJS规范的es5写法能够在浏览器上直接运行，通过使用webpack这个打包工具来完成。
 
 ## `version`  
 
-- v1.0.2
+- v1.0.3
   
 ## `npm install`
 

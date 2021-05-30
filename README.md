@@ -4,31 +4,25 @@
   
 ## 版本
 
+> v1.0.7 : 2021.05.30
+>> 新增cross-env依赖  
+>> 新增terser-webpack-plugin插件
+
+---
+
+> v1.0.6 : 2021.05.24
+>> 新增postcss-loader插件  
+>> 新增自动前缀autoprefixer插件  
+>> 新增stylelint插件配置
+
+---
+
 > v1.0.5 : 2021.05.10
 >> 新增file-loader插件  
 >> 新增url-loader插件  
 >> 新增mini-css-extract-plugin插件  
 >> 新增sass-loader、node-sass插件，转换scss为css  
 >> 新增less-loader、less插件，转换less为css  
-
----
-
-> v1.0.4 : 2021.04.24
->> 新增copy-Webpack-plugin插件  
-
----
-
-> v1.0.3 : 2021.04.21
->> 新增webpack的config配置类  
->> 新增CleanWebpackPlugin插件,build前清理dist目录
->> 新增HtmlWebpackPlugin插件,生成html文件插件
-
----
-
-> v1.0.1 : 2021.04.17
->> 增加index.html  
->> 增加index.js、add-content.js  
->> 增加webpack.config.js
 
 ## 环境
 
@@ -99,6 +93,19 @@ cnpm install node-sass --save-dev
 cnpm install sass-loader@10 --save-dev
 ## 安装less-loader，less将less编译为css，注意：less-loader@8以上是webpack5版本以上支持；
 npm install less-loader@7 less --save-dev
+## 安装postcss-loader,注意：post-loader@5以上是webpack5版本以上支持；
+npm install postcss-loader@4 --save-dev
+## 安装autopreefixer，注意：autoprefixer@9版本；
+npm install autoprefixer@9 --save-dev
+## 安装stylelint CSS检测工具
+npm install stylelint --save-dev
+## 安装stylelint-config-standard是stylelint的推荐配置
+## stylelint-order是CSS属性排序插件(先写定位，再写盒模型，再写内容区样式，最后写 CSS3 相关属性)。
+npm install stylelint-config-standard stylelint-order --save-dev
+## 安装 cross-env，解决跨平台的使用环境变量脚本
+npm install cross-env --save-dev
+## 安装terser，压缩js工具（由于老牌工具uglify不支持es6，且uglify-es不再更新，选择terser作为js代码压缩工具。）
+npm install terser-webpack-plugin --save-dev
 ```
 
 ## 目录结构
@@ -107,6 +114,8 @@ npm install less-loader@7 less --save-dev
 .
 ├── build
 │   ├── webpack.base.config.js
+│   ├── webpack.dev.config.js
+│   ├── webpack.prod.config.js
 │   └── webpack.util.js
 ├── config
 │   └── index.js
@@ -117,6 +126,7 @@ npm install less-loader@7 less --save-dev
 ├── package.json
 ├── src
 │   ├── app.js
+│   ├── app2.js
 │   ├── assets
 │   │   ├── css
 │   │   │   ├── _button.scss
@@ -124,20 +134,20 @@ npm install less-loader@7 less --save-dev
 │   │   │   ├── _form.scss
 │   │   │   ├── _tablelist.scss
 │   │   │   ├── _variables.scss
-│   │   │   └── style.scss
+│   │   │   └── core.scss
 │   │   └── img
 │   │       └── avatar.jpg
-│   ├── vendor
-│   │   ├── add-content.js
-│   │   └── add-fileloader.js
-│   └── vendor.js
+│   └── components
+│       ├── add-content.js
+│       ├── add-fileloader.js
+│       └── async-load.js
 └── static
     ├── css
     │   └── style.css
     └── image
         └── avatar.jpg
 
-11 directories, 20 files
+11 directories, 23 files
 
 ```
 
