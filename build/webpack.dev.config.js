@@ -7,7 +7,7 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-17 14:33:17
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-05-26 15:03:32
+ * @LastEditTime: 2021-05-26 16:41:53
  * @Version: 1.0.5
  */
 'use strict';
@@ -32,6 +32,7 @@ module.exports = {
     app: ['./app.js'],
     app2: ['./app2.js']
   },
+  devtool: _webpackConfig.dev.devTool(),
   output: {
     path: _webpackUtil.resolve(__dirname, '../dist'),
     publicPath: _webpackConfig.base.assetsPublicPath(),

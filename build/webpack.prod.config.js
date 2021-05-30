@@ -7,7 +7,7 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-17 14:33:17
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-05-26 15:03:32
+ * @LastEditTime: 2021-05-26 17:33:04
  * @Version: 1.0.5
  */
 'use strict';
@@ -23,6 +23,7 @@ const _HtmlWebpackPlugin = require('html-webpack-plugin');
 const _CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const _MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const _TerserPlugin = require('terser-webpack-plugin');
 /**
  * 导出
  */
@@ -32,13 +33,14 @@ module.exports = {
     app: ['./app.js'],
     app2: ['./app2.js']
   },
+  devtool: _webpackConfig.build.productionSourceMap() ? _webpackConfig.build.devTool() : false,
   output: {
     path: _webpackUtil.resolve(__dirname, '../dist'),
     publicPath: _webpackConfig.base.assetsPublicPath(),
     filename: _webpackUtil.assetsPath('js/[name].[chunkhash:8].js'),
     chunkFilename: _webpackUtil.assetsPath('js/[name].[chunkhash:8].js')
   },
-  mode: 'development',
+  mode: 'production',
   devServer: {
     port: _webpackConfig.dev.devServerPort(),
     publicPath: _webpackConfig.base.assetsPublicPath(),
@@ -141,6 +143,26 @@ module.exports = {
     ]
   },
   optimization: {
+    minimize: true,
+    minimizer: [new _TerserPlugin({
+      cache: true,
+      sourceMap: false,
+      parallel: true, // 多进程
+      extractComments: true, // 移除注释
+      terserOptions: {
+        ecma: undefined,
+        warnings: false,
+        parse: {},
+        compress: {
+          // eslint-disable-next-line camelcase
+          drop_console: true,
+          // eslint-disable-next-line camelcase
+          drop_debugger: false,
+          // eslint-disable-next-line camelcase
+          pure_funcs: ['console.log'] // 移除console
+        }
+      }
+    })],
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
