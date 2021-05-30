@@ -9,13 +9,13 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-17 13:39:17
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-04-25 14:37:44
+ * @LastEditTime: 2021-05-26 17:26:41
  * @Version: 1.0.3
  */
 module.exports = {
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
-    parser: 'babel-eslint',
     sourceType: 'module',
     allowImportExportEverywhere: true,
     ecmaFeatures: {
@@ -135,7 +135,8 @@ module.exports = {
     }
     ],
     // -------------------------------------------- 语法规则 ------------------------------------------
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'off' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'accessor-pairs': 2,
     'constructor-super': 2,
