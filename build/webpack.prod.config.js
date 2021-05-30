@@ -7,7 +7,7 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-17 14:33:17
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-05-26 17:33:04
+ * @LastEditTime: 2021-05-30 14:49:11
  * @Version: 1.0.5
  */
 'use strict';
@@ -24,6 +24,8 @@ const _CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const _MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const _TerserPlugin = require('terser-webpack-plugin');
+const _OptimizeCss = require('optimize-css-assets-webpack-plugin');
+
 /**
  * 导出
  */
@@ -211,6 +213,22 @@ module.exports = {
     new _MiniCssExtractPlugin({
       filename: _webpackUtil.assetsPath('/css/[name].[contenthash:8].css'),
       chunkFilename: _webpackUtil.assetsPath('/css/[name].[contenthash:8].css')
+    }),
+    new _OptimizeCss({
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: require('cssnano'), // 引入cssnano配置压缩选项
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true }}]
+      },
+      cssProcessorOptions: {
+        map: {
+          inline: false,
+          annotation: true
+        }
+      },
+      safe: true,
+      autoprefixer: false,
+      canPrint: true
     }),
     new CleanWebpackPlugin({
       verbose: true,
