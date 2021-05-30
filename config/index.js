@@ -7,7 +7,7 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-21 10:05:12
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-05-11 19:54:05
+ * @LastEditTime: 2021-05-26 16:40:34
  * @Version: 1.0.1
  */
 'use strict';
@@ -24,6 +24,11 @@ const _buildPath = 'dist';
  */
 const _bannerPluginBanner = 'Copyright® xukaixing<andy.ten@tom.com>';
 
+/**
+ * devtool配置
+ */
+const _devDevTool = 'cheap-module-eval-source-map';
+const _prodDevTool = 'source-map';
 /**
  * devServer配置
  */
@@ -60,11 +65,14 @@ module.exports = {
   },
   dev: {
     devServerPort: () => _devServerPort,
-    urlLoaderLimit: () => _urlLoaderLimitDev
-
+    urlLoaderLimit: () => _urlLoaderLimitDev,
+    devTool: () => _devDevTool,
+    cssSourceMap: () => true
   },
   build: {
     buildPath: () => _buildPath,
-    urlLoaderLimit: () => _urlLoaderLimitProd
+    urlLoaderLimit: () => _urlLoaderLimitProd,
+    devTool: () => _prodDevTool,
+    productionSourceMap: () => true
   }
 };
