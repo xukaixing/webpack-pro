@@ -6,7 +6,8 @@
 
 > v1.0.7 : 2021.05.30
 >> 新增cross-env依赖  
->> 新增terser-webpack-plugin插件
+>> 新增terser-webpack-plugin插件  
+>> 新增optimize-css-assets-webpack-plugin插件  
 
 ---
 
@@ -106,6 +107,15 @@ npm install stylelint-config-standard stylelint-order --save-dev
 npm install cross-env --save-dev
 ## 安装terser，压缩js工具（由于老牌工具uglify不支持es6，且uglify-es不再更新，选择terser作为js代码压缩工具。）
 npm install terser-webpack-plugin --save-dev
+## 安装css压缩插件：optimize-css-assets-webpack-plugin
+npm install optimize-css-assets-webpack-plugin --save-dev
+## 安装css压缩工具：postcss的插件：cssnano(cssnano@5以上会与postcss版本冲突)
+npm install cssnano@4 --save-dev
+## 安装可视化分析包大小插件
+npm install webpack-bundle-analyzer --save-dev
+## 安装bundlesize检查bundle是否超限，用于验证 webpack 的资源不超过指定的大小
+npm install bundlesize --save-dev
+
 ```
 
 ## 目录结构

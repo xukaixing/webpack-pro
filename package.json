@@ -2,20 +2,44 @@
   "name": "webpack-pro",
   "version": "1.0.7",
   "description": "webpack-pro",
+  "bundlesize":[
+    {
+      "path": "./dist/assets/img/*.jpg",
+      "maxSize": "100 kB"
+    },
+    {
+      "path": "./dist/assets/js/*.js",
+      "maxSize": "50 kB"
+    },
+    {
+      "path": "./dist/assets/js/app.vendors.*.js",
+      "maxSize": "50 kB"
+    }
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js",
-    "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.config.js"
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.config.js",
+    "analyze": "cross-env NODE_ENV=production npm_config_report=true npm run build",
+    "checksize": "bundlesize"
   },
   "keywords": [
     "webpack",
     "webpack-cli",
     "webpack-dev-server",
     "eslint",
+    "stylelint",
     "prettier",
+    "autoprefixer",
     "babel",
+    "postcss",
+    "sass/less",
+    "terser-webpack-plugin",
     "html-webpack-plugin",
-    "clean-webpack-plugin"
+    "mini-css-extract-plugin",
+    "optimize-css-assets-webpack-plugin",
+    "clean-webpack-plugin",
+    "cross-en"
   ],
   "author": "xukaixing<andy.ten@tom.com>",
   "license": "ISC",
@@ -74,6 +98,7 @@
     "terser-webpack-plugin": "^1.4.5",
     "url-loader": "^4.1.1",
     "webpack": "^4.41.5",
+    "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.3"
   }

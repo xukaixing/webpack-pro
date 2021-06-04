@@ -7,7 +7,7 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-17 14:33:17
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-05-26 15:03:32
+ * @LastEditTime: 2021-05-30 15:45:26
  * @Version: 1.0.5
  */
 'use strict';
@@ -19,6 +19,7 @@ const _path = require('path');
 const _webpack = require('webpack');
 const _webpackUtil = require('./webpack.util');
 const _webpackConfig = require('../config/index');
+
 const _HtmlWebpackPlugin = require('html-webpack-plugin');
 const _CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');

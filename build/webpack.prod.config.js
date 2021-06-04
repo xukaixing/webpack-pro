@@ -7,7 +7,7 @@
  * @Author: andy.ten@tom.com
  * @Date: 2021-04-17 14:33:17
  * @LastEditors: andy.ten@tom.com
- * @LastEditTime: 2021-05-30 14:49:11
+ * @LastEditTime: 2021-05-30 16:09:29
  * @Version: 1.0.5
  */
 'use strict';
@@ -25,6 +25,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const _MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const _TerserPlugin = require('terser-webpack-plugin');
 const _OptimizeCss = require('optimize-css-assets-webpack-plugin');
+const _BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /**
  * 导出
@@ -43,14 +44,6 @@ module.exports = {
     chunkFilename: _webpackUtil.assetsPath('js/[name].[chunkhash:8].js')
   },
   mode: 'production',
-  devServer: {
-    port: _webpackConfig.dev.devServerPort(),
-    publicPath: _webpackConfig.base.assetsPublicPath(),
-    overlay: {
-      warnings: false,
-      errors: true
-    }
-  },
   module: {
     rules: [
       {
@@ -169,16 +162,16 @@ module.exports = {
       chunks: 'all',
       cacheGroups: {
         vendors: {
-          name: 'app.vendors',
-          test: /node_modules/,
+          name: '/vendors/app.vendors',
+          test: /[\\/]node_modules[\\/]/,
           priority: -10,
           chunks: 'initial'
         },
         components: {
-          name: 'app.components',
-          test: _webpackUtil.resolve('src/components'),
+          name: '/components/app.components',
+          test: /[\\/]src[\\/]components[\\/]/,
           minChunks: 2,
-          priority: 10,
+          priority: -20,
           reuseExistingChunk: true
         }
       }
@@ -233,6 +226,7 @@ module.exports = {
     new CleanWebpackPlugin({
       verbose: true,
       cleanOnceBeforeBuildPatterns: ['**/*', _webpackConfig.build.buildPath()]
-    })
+    }),
+    new _BundleAnalyzerPlugin()
   ]
 };

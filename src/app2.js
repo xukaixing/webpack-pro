@@ -10,4 +10,5 @@
 // import addContent from './vendor/add-content';
 // import path from 'path';
 // const path = require('path');
+// const { uniqueId } = require('loadsh');
 document.write('My vendor <br />');

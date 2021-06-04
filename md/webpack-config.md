@@ -279,7 +279,58 @@ new _CopyWebpackPlugin({
 ```
 
 - `MiniCssExtractPlugin`
+- `optimize-css-assets-webpack-plugin`
+  - `assetNameRegExp`: 正则表达式，用于匹配需要优化或者压缩的资源名。默认值是 /\.css$/g
+  - `cssProcessor`: 用于压缩和优化CSS 的处理器，默认是 cssnano.这是一个函数，应该按照 cssnano.process 接口(接受一个CSS和options参数，返回一个Promise)
+  - `safe`: 避免 cssnano 重新计算 z-index
+  - `canPrint`: {bool} 表示插件能够在console中打印信息，默认值是true
+  - `autoprefixer`: 默认为true；选择关闭：false；使用postcss的autoprefixer
+  - `map`:
+    - `inline`: false;不生成内联映射,这样配置就会生成一个source-map文件
+    - `annotation`: 向css文件添加source-map路径注释,如果没有此项压缩后的css会去除source-map路径注释
+
+```text
+ 此插件压缩的对象是由mini-css-extract-plugin插件输出的css文件,而不是css源文件.
+ cssnano通过移除注释、空白、重复规则、过时的浏览器前缀以及做出其他的优化来工作，一般能减少至少 50% 的大小.
+ cssnano 集成了autoprefixer的功能。会使用到autoprefixer进行无关前缀的清理。默认不兼容ios8，会去掉部分webkit前缀，比如flex
+ 所以这里选择关闭，使用postcss的autoprefixer功能
+ ```
+
+- `BundleAnalyzerPlugin`
   
+```text
+new BundleAnalyzerPlugin({
+  //  可以是`server`，`static`或`disabled`。
+  //  在`server`模式下，分析器将启动HTTP服务器来显示软件包报告。
+  //  在“静态”模式下，会生成带有报告的单个HTML文件。
+  //  在`disabled`模式下，你可以使用这个插件来将`generateStatsFile`设置为`true`来生成Webpack Stats JSON文件。
+  analyzerMode: 'server',
+  //  将在“服务器”模式下使用的主机启动HTTP服务器。
+  analyzerHost: '127.0.0.1',
+  //  将在“服务器”模式下使用的端口启动HTTP服务器。
+  analyzerPort: 8888, 
+  //  路径捆绑，将在`static`模式下生成的报告文件。
+  //  相对于捆绑输出目录。
+  reportFilename: 'report.html',
+  //  模块大小默认显示在报告中。
+  //  应该是`stat`，`parsed`或者`gzip`中的一个。
+  //  有关更多信息，请参见“定义”一节。
+  defaultSizes: 'parsed',
+  //  在默认浏览器中自动打开报告
+  openAnalyzer: true,
+  //  如果为true，则Webpack Stats JSON文件将在bundle输出目录中生成
+  generateStatsFile: false, 
+  //  如果`generateStatsFile`为`true`，将会生成Webpack Stats JSON文件的名字。
+  //  相对于捆绑输出目录。
+  statsFilename: 'stats.json',
+  //  stats.toJson（）方法的选项。
+  //  例如，您可以使用`source：false`选项排除统计文件中模块的来源。
+  //  在这里查看更多选项：https：  //github.com/webpack/webpack/blob/webpack-1/lib/Stats.js#L21
+  statsOptions: null,
+  logLevel: 'info' // 日志级别。可以是'信息'，'警告'，'错误'或'沉默'。
+})
+```
+
 ## 个人主页
 
 - 欢迎访问个人 [github-xukaixing](https://github.com/xukaixing) 主页.
